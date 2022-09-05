@@ -15,3 +15,4 @@ levels(Nascimento)
 Nível <- factor(c("Mãe", "Pai", "Avó", "Avô", "Avó", "Avô", "Filho", "Filho", "Filho"))
 
 Familia <- data.frame(Nome, Idade, Nascimento, Gênero, Nível)
+
