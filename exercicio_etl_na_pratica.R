@@ -69,7 +69,7 @@ sinistrosRecifeRaw_2$bairro <- as.factor(sinistrosRecifeRaw_2$bairro)
 ## SALVANDO BASE
 
 # exporta em formato nativo do R
-saveRDS(sinistrosRecifeRaw_2, "bases_tratadas/sinistrosRecife.rds")
+saveRDS(sinistrosRecifeRaw, "bases_tratadas/sinistrosRecife.rds")
 
 # exporta em formato tabular (.csv) - padrÃ£o para interoperabilidade
-write.csv2(sinistrosRecifeRaw_2, "bases_tratadas/sinistrosRecife.csv")
+write.csv2(sinistrosRecifeRaw, "bases_tratadas/sinistrosRecife.csv")
