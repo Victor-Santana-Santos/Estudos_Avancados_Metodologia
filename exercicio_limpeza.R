@@ -5,10 +5,6 @@ library(dplyr)
 library(tidyverse)
 library(funModeling) 
 
-# NÃO SEI PORQUE ESTÁ DANDO ERRO, SE SÓ FIZ COPIAR O SCRIPT DO GITHUB... o erro
-# que está aparecendo é: Error in h(simpleError(msg, call)) : 
-# erro na avaliação do argumento 'x' na seleção do método para a função '%in%': 'object 'location' not found'
-
 general_data <- fread("https://covid.ourworldindata.org/data/owid-covid-data.csv") # carrega dados de covid19 no mundo
 
 latin_america_countries <-c("Argentina", "Brazil", "Bolivia", "Chile", "Colombia", "Costa Rica", "Cuba", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Haiti", "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela") # vetor que identifica países latino americanos
@@ -26,5 +22,9 @@ latin_america %>% filter(new_cases < 0)
 
 # Remoção de NAs
 
-
 latin_america <- latin_america %>% filter(new_cases>=0)
+
+latin_america_new <- latin_america %>%
+  filter(!is.na(new_cases)) %>%
+  filter(!is.na(new_deaths)) %>%
+  filter(!is.na(location)) 
