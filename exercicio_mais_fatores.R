@@ -8,11 +8,13 @@ library(forcats)
 
 iris <- iris
 
-factorsIris <- unlist(lapply(iris, is.factor))  
-irisFactor <- iris[ , factorsIris]
+iris_Factor <- as.factor(iris)
+
+factors_Iris <- unlist(lapply(iris_Factor, is.factor))  
+irisFactor <- iris[ , factors_Iris]
 str(irisFactor)
 
-iris_dummy <- acm.disjonctif(irisFactor) # não sei porque está dando erro
+iris_dummy <- acm.disjonctif(irisFactor)
 
 # Frequência de fatores
 
