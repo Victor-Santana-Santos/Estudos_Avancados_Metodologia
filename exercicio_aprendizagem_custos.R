@@ -9,6 +9,17 @@ ataque_cardiaco <- read.csv('https://archive.ics.uci.edu/ml/machine-learning-dat
 
 prop.table(table(ataque_cardiaco$DEATH_EVENT))
 
+ataque_cardiaco$DEATH_EVENT <- as.factor(ataque_cardiaco$DEATH_EVENT)
+
+# NÃO PRECISEI DISCRETIZAR PORQUE A VARIÁVEL JÁ É BINÁRIA
+
+# Treino e Teste: Pré-processamento
+particao_ataque_cardiaco = createDataPartition(ataque_cardiaco$DEATH_EVENT, p=.7, list = F) # cria a partição 70-30
+treino_ataque_cardiaco = ataque_cardiaco[particao_ataque_cardiaco, ] # treino
+teste_ataque_cardiaco = ataque_cardiaco[-particao_ataque_cardiaco, ] # - treino = teste
+
+table(treino_ataque_cardiaco$DEATH_EVENT)
+
 # A variável é desbalançeada mas não tanto como a do exemplo que o professor usou.
 
 # Validação Cruzada: Pré-processamento
