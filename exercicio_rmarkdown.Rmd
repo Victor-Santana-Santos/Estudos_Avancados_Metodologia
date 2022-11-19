@@ -1,0 +1,48 @@
+---
+title: "exercicio_rmarkdown"
+author: "Victor Matheus de Santana Santos"
+date: "2022-11-19"
+output: html_document
+---
+
+---
+title: "Análise usArrests"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# carregar as bibliotecas
+pacman::p_load(cluster, factoextra, dplyr, ggplot2, plotly)
+# pré-processamento
+usArrests_cluster <- USArrests
+str(usArrests_cluster)
+
+# definir semente aleatória
+set.seed(1)
+
+# Método do Cotovelo
+fviz_nbclust(usArrests_cluster, kmeans, method = "wss")
+
+# O gráfico apresentou um padrão estranho, mas eu assumi o 4 como o número ideal.
+
+# Agrupamento com kmeans
+cls <- kmeans(x = usArrests_cluster, centers = 4) # aprendizagem ns
+usArrests_cluster$cluster <- as.factor(cls$cluster) # passamos os clusters para a base original
+head(usArrests_cluster)
+```
+
+# Agrupamento dos dados 'usArrests'
+## K-means
+
+Abaixo, você encontra o agrupamento da base de dados usArrests, usando a técnica de k-means.
+
+```{r iriscluster, echo=FALSE, warning=FALSE, message=FALSE}
+grafico1 <- ggplot() +
+  geom_point(data = usArrests_cluster, mapping = aes(x = Murder, y = UrbanPop, colour = cluster)) + 
+  geom_point(mapping = aes_string(x = cls$centers[ , "Murder"], y = cls$centers[ , "UrbanPop"]), color = "red", size = 4) +
+  geom_text(mapping = aes_string(x = cls$centers[ , "Murder"], y = cls$centers[ , "UrbanPop"], label = 1:4), color = "white", size = 2) +
+  theme_light()
+ggplotly(grafico1)
+```
+
+Percebe-se que os clusters 2 e 3 (verde e azul, respectivamente) tendem a uma diferenciação maior quanto à disperção no gráfico. O cluster 2 (verde) também tende a ter uma baixa população urbana, assim como a ter menores índices de assassinato. Contudo, a dispersão dos outros clusters com relação aos dados analisados no gráfico é tanta que torna difícil analisá-lo mais a fundo. Os clusters 1 e 4 (vermelho e lilás, respectivamente), em especial, não apresentam uma clara divisão no gráfico. Talvez plotando as outras variáveis da base, essa distinção se torne mais clara. 
